@@ -1,0 +1,202 @@
+/*
+  Builder Journal — Design System
+
+  The visual language of a working notebook: ink on paper, ruled margins, and
+  corrections made in the open. Every token below exists to keep attention on
+  the writing. Nothing here decorates.
+
+  Tokens are declared in Tailwind's `@theme`, so each one generates a utility
+  (`--color-ink` becomes `text-ink`, `bg-ink`, `border-ink`). Sections consume
+  utilities; they should never restate a raw value.
+*/
+
+@theme {
+  /*
+    Colour — a near-monochrome page with one voice of contrast.
+
+    Paper is a cool sage-grey rather than the warm cream that reads as a
+    stand-in for "thoughtful". Ink is a green-black, never #000: pure black on
+    a light page is a glare, not a colour. All text tokens are verified at or
+    above WCAG AA 4.5:1 on both paper and raised surfaces.
+  */
+  --color-paper: #e9edec;
+  --color-paper-raised: #f6f8f7;
+  --color-paper-sunken: #dde3e1;
+
+  --color-ink: #17201e; /* 14.10:1 on paper — body and headings */
+  --color-ink-muted: #47534f; /* 6.79:1 on paper — secondary prose */
+  --color-ink-faint: #5c6863; /* 4.92:1 on paper — captions, still AA */
+
+  /*
+    Rules carry the notebook's margin. `rule` is decorative only; anything that
+    conveys a boundary or state uses `rule-strong`, which clears WCAG 1.4.11.
+  */
+  --color-rule: #d2d8d5;
+  --color-rule-strong: #7a867f; /* 3.21:1 on paper — borders, dividers that mean something */
+
+  /*
+    Accent — oxblood, the colour of a correction in the margin. It marks links,
+    the current position, and the single most important action on a screen.
+    If it appears more than once or twice per section, the section is wrong.
+  */
+  --color-accent: #7b2c39; /* 7.87:1 on paper */
+  --color-accent-strong: #5e212b; /* 10.29:1 — hover, active */
+  --color-accent-soft: #f0e4e6; /* tinted background only, never text */
+
+  --color-focus: #7b2c39;
+
+  /*
+    Typography — sans headings over serif prose, inverting the usual portfolio.
+    A serif body says the page is meant to be read rather than scanned, which is
+    the whole premise. Archivo carries the confidence; Literata carries the
+    reading. No monospace: SPEC puts identity before technology, and mono is a
+    technology signal.
+  */
+  --font-display: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Literata Variable', ui-serif, Georgia, serif;
+
+  /*
+    Mono is the system stack, not a download. Code appears here only when a
+    decision is easier to show than to describe, which is rare enough that it
+    does not justify a third face. Revisit if code becomes a storytelling
+    device rather than an occasional exhibit.
+  */
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', monospace;
+
+  /*
+    Type scale — fluid, mobile-first, roughly a minor third. clamp() lets each
+    step grow with the viewport so no breakpoint has to restate the scale.
+  */
+  --text-2xs: 0.75rem;
+  --text-2xs--line-height: 1.4;
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.6;
+  --text-base: clamp(1.0625rem, 1.02rem + 0.2vw, 1.1875rem);
+  --text-base--line-height: 1.7; /* long-form reading needs the air */
+  --text-lg: clamp(1.1875rem, 1.12rem + 0.35vw, 1.375rem);
+  --text-lg--line-height: 1.6;
+  --text-xl: clamp(1.375rem, 1.26rem + 0.55vw, 1.75rem);
+  --text-xl--line-height: 1.4;
+  --text-2xl: clamp(1.75rem, 1.55rem + 0.95vw, 2.5rem);
+  --text-2xl--line-height: 1.25;
+  --text-3xl: clamp(2.25rem, 1.9rem + 1.7vw, 3.5rem);
+  --text-3xl--line-height: 1.15;
+  --text-4xl: clamp(2.75rem, 2.1rem + 3vw, 4.75rem);
+  --text-4xl--line-height: 1.05;
+
+  --tracking-tightest: -0.035em; /* display sizes only — large type needs less space */
+  --tracking-tight: -0.015em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.08em; /* small uppercase eyebrows */
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  /*
+    Spacing — a 4px base. Tailwind multiplies this, so `p-4` is 16px and the
+    rhythm stays divisible by 4 at every step.
+  */
+  --spacing: 0.25rem;
+
+  /* Vertical rhythm: the distance between sections is a design decision, not an accident. */
+  --spacing-flow: 1.5rem; /* between paragraphs */
+  --spacing-stack: 3rem; /* between blocks in a section */
+  --spacing-section: clamp(4rem, 3rem + 5vw, 8rem); /* between sections */
+  --spacing-gutter: clamp(1.25rem, 0.9rem + 1.6vw, 2rem); /* page edge padding */
+  --spacing-rail: 10rem; /* the margin column, where eyebrows and dates sit */
+
+  /*
+    Containers — measure first. Reading columns are capped near 68 characters
+    because comprehension falls off past that, regardless of screen width.
+  */
+  --container-text: 34rem; /* ~68ch of Literata — prose */
+  --container-content: 48rem; /* prose plus its margin rail */
+  --container-wide: 72rem; /* full page frame */
+
+  /*
+    Radius — present but quiet. Zero radius reads as a broadsheet affectation;
+    large radius reads as a consumer app. 2–6px reads as paper cut cleanly.
+  */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
+
+  /*
+    Shadow — elevation comes from rules and space, not from haze. These exist
+    for the rare element that genuinely floats; a shadow is never decoration.
+  */
+  --shadow-raised: 0 1px 2px rgb(23 32 30 / 0.04), 0 2px 8px rgb(23 32 30 / 0.04);
+  --shadow-float: 0 2px 4px rgb(23 32 30 / 0.05), 0 8px 24px rgb(23 32 30 / 0.06);
+
+  /*
+    Motion — answers the reader, never performs for them. Nothing moves in the
+    reading plane; motion lives at interaction boundaries only. Full reasoning
+    in docs/design-system.md.
+
+    Tailwind has no --duration-* namespace, so these are consumed as
+    `duration-(--duration-quick)` to keep durations tokenised rather than typed
+    as raw values at each call site.
+  */
+  --duration-quick: 120ms; /* hover, press — acknowledges input */
+  --duration-moderate: 200ms; /* state changes the eye must follow */
+  --duration-considered: 280ms; /* disclosure, layout shifts — the ceiling */
+
+  --ease-out-quiet: cubic-bezier(0.2, 0, 0, 1); /* entering: decelerate into place */
+  --ease-in-out-quiet: cubic-bezier(0.4, 0, 0.2, 1); /* moving: settle at both ends */
+}
+
+/*
+  Base layer — the defaults every section inherits, so no section has to
+  remember them.
+*/
+@layer base {
+  html {
+    /* Anchor links land gently; the reduced-motion block in index.css overrides this. */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+    text-wrap: balance; /* keeps headings from stranding one word on a line */
+  }
+
+  p {
+    text-wrap: pretty; /* prevents orphans without hyphenating */
+  }
+
+  /*
+    A single visible focus style for every interactive element. Keyboard
+    visitors are not a fallback path.
+  */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+/*
+  This file owns the tokens. The reasoning behind them — motion principles,
+  per-component rules, the margin rail, and the icon philosophy — lives in
+  docs/design-system.md so it is stated once and read where decisions are made.
+*/

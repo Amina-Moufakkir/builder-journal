@@ -1,9 +1,19 @@
 @import 'tailwindcss';
 
 /*
-  Accessibility baseline. Visual identity (color, typography, spacing scale) is
-  deliberately not defined yet — it belongs with the design of the sections themselves.
+  Self-hosted variable fonts — no third-party request, no CDN round trip.
+  Weight axis only: Literata's optical-size axis is lovely but costs 110kB
+  against 52kB for the same face, which is the wrong trade on a page that has
+  to load fast. Real italics are included rather than letting the browser fake
+  them by slanting the roman; they are only fetched once italic text renders.
 */
+@import '@fontsource-variable/archivo';
+@import '@fontsource-variable/literata';
+@import '@fontsource-variable/literata/wght-italic.css';
+
+/* The design language: tokens, base defaults, and the principles behind them. */
+@import './design-system.css';
+
 @layer base {
   /* Honour the visitor's system preference for reduced motion. */
   @media (prefers-reduced-motion: reduce) {

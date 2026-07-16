@@ -33,6 +33,7 @@ For every significant AI-assisted task:
 | #   | Prompt                         | Purpose                                                        | Status |
 | --- | ------------------------------ | -------------------------------------------------------------- | ------ |
 | 001 | Establish Technical Foundation | Scaffold the project and configure the development environment | ✅     |
+| 002 | Define the Design System | Establish the visual language and reusable design tokens | ✅ |
 
 Additional prompts will be added as the project evolves.
 
