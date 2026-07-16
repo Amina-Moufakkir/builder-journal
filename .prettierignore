@@ -1,0 +1,7 @@
+dist
+node_modules
+package-lock.json
+
+# Prose is written by hand and reviewed by hand; Prettier should not rewrite it.
+docs
+*.md
