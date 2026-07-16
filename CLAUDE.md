@@ -91,3 +91,12 @@ Avoid generic messages like:
 - changes
 
 Every commit should tell part of the project's story.
+
+---
+
+## Documentation Rules
+
+- Never modify `README.md` unless explicitly instructed or the current task requires documenting a meaningful project change.
+- Never modify `SPEC.md` unless the product requirements change.
+- Never overwrite existing prompt documentation.
+- Create a new prompt record for each significant AI-assisted task.
