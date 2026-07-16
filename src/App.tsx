@@ -1,10 +1,13 @@
+import Hero from './sections/Hero.tsx'
+
 // The application shell. Portfolio sections are composed here as each one is built.
 export default function App() {
   return (
-    <main className="mx-auto max-w-2xl px-6 py-16">
-      {/* Main page content */}
+    /* Main page content */
+    <main>
+      <Hero />
 
-      {/* Portfolio sections will be added in future milestones. */}
+      {/* Journey, principles, projects, about, and contact follow in later milestones. */}
     </main>
   )
 }

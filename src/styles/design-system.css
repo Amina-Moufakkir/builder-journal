@@ -118,6 +118,13 @@
   --container-wide: 72rem; /* full page frame */
 
   /*
+    A reading column with a figure beside it: 34rem of prose + 14rem of figure + the gutters
+    between and around them. Sized so the measure never has to shrink to make room for an image —
+    the picture gives way to the words, not the other way round.
+  */
+  --container-feature: 54rem;
+
+  /*
     Radius — present but quiet. Zero radius reads as a broadsheet affectation;
     large radius reads as a consumer app. 2–6px reads as paper cut cleanly.
   */
