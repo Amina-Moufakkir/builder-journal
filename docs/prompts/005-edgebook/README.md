@@ -31,7 +31,7 @@ Prompts should normally be completed in order.
 | Prompt | Purpose | Status |
 |---------|---------|--------|
 | 001 | Introduce Edgebook AI on the homepage as the flagship project. | Complete |
-| 002 | Build the dedicated Edgebook AI case study. | Planned |
+| 002 | Build the dedicated Edgebook AI case study. | In Progress |
 | 003 | Reserved | — |
 | 004 | Reserved | — |
 
