@@ -1,4 +1,5 @@
 import Hero from './sections/Hero.tsx'
+import Journey from './sections/Journey.tsx'
 
 // The application shell. Portfolio sections are composed here as each one is built.
 export default function App() {
@@ -6,8 +7,9 @@ export default function App() {
     /* Main page content */
     <main>
       <Hero />
+      <Journey />
 
-      {/* Journey, principles, projects, about, and contact follow in later milestones. */}
+      {/* Principles, projects, about, and contact follow in later milestones. */}
     </main>
   )
 }

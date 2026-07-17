@@ -100,3 +100,4 @@ Every commit should tell part of the project's story.
 - Never modify `SPEC.md` unless the product requirements change.
 - Never overwrite existing prompt documentation.
 - Create a new prompt record for each significant AI-assisted task.
+- If personal narrative or product intent cannot be inferred from the project's documentation, ask for clarification instead of fabricating content.

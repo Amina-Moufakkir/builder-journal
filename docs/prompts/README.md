@@ -35,6 +35,7 @@ For every significant AI-assisted task:
 | 001 | Establish Technical Foundation | Scaffold the project and configure the development environment | ✅     |
 | 002 | Define the Design System | Establish the visual language and reusable design tokens | ✅ |
 | 003 | Build the Hero Experience      | Introduce the builder before the engineer through the hero     | ✅     |
+| 004 | Build the Journey Narrative    | Tell the story behind the builder through a narrative journey  | ✅ |
 
 Additional prompts will be added as the project evolves.
 
