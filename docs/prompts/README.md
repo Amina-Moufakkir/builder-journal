@@ -36,8 +36,11 @@ For every significant AI-assisted task:
 | 002 | Define the Design System | Establish the visual language and reusable design tokens | ✅ |
 | 003 | Build the Hero Experience      | Introduce the builder before the engineer through the hero     | ✅     |
 | 004 | Build the Journey Narrative    | Tell the story behind the builder through a narrative journey  | ✅ |
+| 005 | [Edgebook AI Workstream](005-edgebook/README.md) | Introduce and document Edgebook AI, the portfolio's flagship project | In progress |
 
 Additional prompts will be added as the project evolves.
+
+Prompt 005 is a multi-part workstream. Its individual prompts (homepage, case study, and beyond) are tracked in its own [workstream index](005-edgebook/README.md) rather than as separate rows here.
 
 ## Guiding Principle
 
