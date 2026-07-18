@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import Hero from './sections/Hero.tsx'
 import Journey from './sections/Journey.tsx'
-import FeaturedProject from './sections/FeaturedProject.tsx'
+import Projects from './sections/Projects.tsx'
 
 // Builder Journal is a single page. Its one separate destination is the Edgebook AI case study, which
 // the flagship section links to. Rather than take on a routing dependency for a single place, that
@@ -64,9 +64,9 @@ export default function App() {
     <main>
       <Hero />
       <Journey />
-      <FeaturedProject />
+      <Projects />
 
-      {/* Principles, selected projects, about, and contact follow in later milestones. */}
+      {/* Principles, about, and contact follow in later milestones. */}
     </main>
   )
 }

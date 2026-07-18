@@ -1,23 +1,21 @@
-// Builder Journal's flagship: Edgebook AI, the strongest evidence of how Amina builds. The section
-// has one job — make the visitor understand why Edgebook matters and want the full case study — so it
-// introduces the product and hands off, and deliberately leaves the depth (architecture, the decision
-// log) to the case study itself (docs/prompts/005-edgebook/001-build-edgebook-homepage.md).
+import { flagship } from '../../content/work.ts'
+import LifecycleTag from './LifecycleTag.tsx'
+
+// The flagship inside the Projects section: Edgebook AI, the strongest evidence of how Amina builds.
+// This is the reused homepage feature — the same copy, visual, and case-study link as before — now
+// nested under <Projects /> rather than owning the #projects anchor itself. Its job is unchanged:
+// introduce the product and hand off to the full case study, which holds the depth
+// (docs/prompts/005-edgebook/001-build-edgebook-homepage.md).
 //
-// It carries the `#projects` anchor the hero CTA and the Journey coda both already point at, so the
-// three sections read as one path: who I am, how I got here, and what that produced.
+// It reads only identity and lifecycle status from src/content/work.ts; Edgebook's prose and its
+// case-study route stay here, the single source of truth. Full width, never inside a grid — the
+// asymmetry with the lighter coursework is the argument the section makes.
 //
-// Layout mirrors the hero's own two-column grid rather than borrowing the margin rail: a narrative
-// column beside the product visual. The narrative comes first in source order — the claim is
-// understood before the evidence is seen — and the visual sits to its right on wide screens; below lg
-// the two stack in that same reading order. The rail is left for the case study, where an annotated
-// decision narrative will actually need it.
-export default function FeaturedProject() {
+// Layout mirrors the hero's two-column grid: narrative first in source order, product visual beside it
+// on wide screens, stacking on narrow. The rail is left for the case study, where it earns its place.
+export default function FlagshipProject() {
   return (
-    <section
-      id="projects"
-      aria-labelledby="featured-heading"
-      className="max-w-wide mx-auto px-gutter pb-section"
-    >
+    <section aria-labelledby="flagship-heading">
       <div className="lg:gap-x-stack gap-y-stack grid items-center lg:grid-cols-2">
         {/* The narrative: label, name, the value in one line, the problem, and what makes it different. */}
         <div className="max-w-text">
@@ -25,12 +23,11 @@ export default function FeaturedProject() {
             Flagship project
           </p>
 
-          <h2 id="featured-heading" className="mt-flow text-2xl tracking-tight">
-            Edgebook AI
-          </h2>
+          <h3 id="flagship-heading" className="mt-flow text-2xl tracking-tight">
+            {flagship.name}
+          </h3>
 
-          {/* The value, promoted to lead size — the scannable claim, and prose rather than a heading so
-              the section keeps a clean h2-then-body order. */}
+          {/* The value, promoted to lead size — the scannable claim, prose rather than a heading. */}
           <p className="mt-stack text-xl leading-snug tracking-tight">
             An AI trading coach that helps traders improve the quality of their decisions &mdash; not
             just record their trades.
@@ -50,12 +47,10 @@ export default function FeaturedProject() {
             </p>
           </div>
 
-          {/* Status: orientation, kept quiet. The product is still being designed and built, and says
-              so plainly rather than borrowing the language of something shipped. */}
-          <p className="text-ink-faint font-display mt-stack inline-flex items-center gap-2 text-xs tracking-wide uppercase">
-            <span className="bg-rule-strong size-1.5 rounded-full" aria-hidden="true" />
-            In development
-          </p>
+          {/* Project lifecycle — a different axis from the case study's implementation-evidence labels. */}
+          <div className="mt-stack">
+            <LifecycleTag status={flagship.status} />
+          </div>
 
           {/* One invitation onward — the single accent action in the section. */}
           <div className="mt-stack">
@@ -69,10 +64,9 @@ export default function FeaturedProject() {
         </div>
 
         {/*
-          The product visual — the section's evidence. No verified product screen exists yet, so this
-          is an intentional placeholder in the notebook's own paper-and-rule language, not a mocked-up
+          The product visual — the section's evidence. No verified product screen exists yet, so this is
+          an intentional placeholder in the notebook's own paper-and-rule language, not a mocked-up
           dashboard: a fabricated interface would be the exact opposite of what this portfolio is for.
-          It states plainly that the interface is still being built.
         */}
         <figure>
           <div className="bg-paper-sunken border-rule-strong flex aspect-4/3 flex-col items-center justify-center rounded-lg border px-gutter text-center">

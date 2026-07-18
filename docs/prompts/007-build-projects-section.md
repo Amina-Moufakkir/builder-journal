@@ -1,4 +1,4 @@
-# Projects Section — Implementation Spec
+# 007 — Build the Projects Section
 
 Portfolio section covering one flagship project (Edgebook AI) and an in-progress AI-native program. Written to be built from directly.
 
@@ -267,6 +267,81 @@ The goal is that shipping the first coursework project becomes a data edit rathe
 
 ---
 
+## Implementation prompt
+
+The executable instruction for this build — hand it to Claude Code. It runs on this spec plus the architecture decision in `006-portfolio-architecture-update.md`. (Pre-build: per the note at the top, the prompt-record and review fields are appended once the build lands.)
+
+```
+Reorganize my homepage to introduce a Projects section, following this spec and
+@006-portfolio-architecture-update.md.
+
+Read both first. 006 establishes the architectural change and its constraints;
+this spec covers implementation. Where they conflict, 006 wins — it's the newer
+decision.
+
+This is a MOVE, not a rebuild. The existing FeaturedProject component already
+presents Edgebook and works. Reuse it as <FlagshipProject /> (a thin wrapper) —
+do not write a new implementation. Do not change Edgebook's messaging, manuscript,
+diagrams, or case study. The goal is to reorganize the Builder Journal homepage
+without changing the existing Edgebook implementation. The reorganization stops at
+the Projects section boundary.
+
+Before writing code, read:
+- src/pages/case-study/StatusLabel.tsx — exports StatusLabel and the Status type.
+  Import these for implementation-evidence labels. Do not redefine them.
+- The existing FeaturedProject component (currently carries id="projects").
+- Match existing styling conventions — Tailwind, same palette, same type scale,
+  same token names (text-ink-faint, font-display, text-2xs etc.).
+
+Three details from this spec that are easy to get wrong — get them right:
+
+1. TWO STATUS AXES, not one. Project lifecycle (in-development / in-progress /
+   complete) uses this section's own lightweight tag. Implementation evidence
+   (Implemented / Designed / Planned / Needs validation) uses the imported
+   StatusLabel. Do not overload evidence labels to describe lifecycle — a feature
+   is Implemented, a project is not. Don't invent a third vocabulary.
+
+2. work.ts holds the flagship's identity and lifecycle status ONLY. Edgebook's
+   copy and case-study route stay in the existing feature component — one source
+   of truth. Do not restate them in work.ts.
+
+3. The #projects anchor MOVES onto <Projects />. It currently sits on
+   FeaturedProject, and two links point at it: the hero CTA ("Explore my work")
+   and the Journey coda ("featured project"). Both must keep resolving. Do not
+   edit the hero or the Journey. Do not add a second anchor.
+
+Build new: <Projects /> wrapper, <ProgramBlock /> + empty state, <ProgramProject />,
+and src/content/work.ts.
+
+Follow the build order above (steps 1–9), including steps 7 and 8: test
+<ProgramProject /> with one temporary object, confirm it renders, then delete it.
+Shipping the first coursework project must be a data edit, not an implementation task.
+
+Hard constraints, non-negotiable:
+- Edgebook is full-width and visually dominant. No grid.
+- program.projects ships as []. The section must read honestly with zero projects.
+- No placeholder cards, blank tiles, fake thumbnails, or "coming soon" copy.
+- Empty-state copy is exactly the sentence in this spec, and self-deletes on first project.
+- Coursework rows are visibly lighter than the flagship.
+
+Where the specs leave a choice open, take the option that claims less.
+
+When done, report:
+- which files you moved, created, and left untouched
+- the "Checks before shipping" list above — what you verified, what you couldn't
+- confirmation that both existing #projects links still resolve
+```
+
+### Why the prompt is shaped this way
+
+**The numbered trio is doing the real work.** Each is a failure that passes review: a merged status vocabulary looks fine until a second flagship is added; duplicated Edgebook copy looks fine until the two versions drift; a broken anchor looks fine because nothing errors — the link just scrolls nowhere.
+
+**The precedence rule is explicit.** 006 and this spec disagree in places (e.g. earlier drafts weighed "Work" vs "Projects"). Stating "006 wins" up front stops the agent trying to satisfy both.
+
+**Self-report against the checklist, not a "done" declaration.** The items the agent can't verify from code — responsive layout, keyboard focus, reduced motion — are the ones to check in the browser.
+
+---
+
 ## Notes for later
 
 ### On coursework
@@ -307,3 +382,77 @@ That breadth communicates more about how you build than several shallow case stu
 Depth is the differentiator.
 
 Don't dilute it simply to fill a grid.
+
+---
+
+## Claude Code Output
+
+Reorganized the homepage into a **Projects** section — a move, not a rebuild. The existing Edgebook feature was reused as the flagship (no reimplementation), and a lighter program block for AI-Native Program coursework sits beside it, rendering an honest empty state with zero projects. The `#projects` anchor moved onto the new `<Projects />` wrapper; the hero CTA and the Journey coda were left untouched and both still resolve. The two status axes are kept structurally distinct — a new lightweight `LifecycleTag` for project lifecycle, the case study's `StatusLabel` untouched for implementation evidence. No new dependencies, tokens, or colours; type checking, linting, and the production build pass, and the case study remains its own lazy chunk.
+
+**One judgment call worth recording.** The spec described `<FlagshipProject />` as a "thin wrapper" around the existing feature. Since that feature already presents Edgebook completely, a wrapper with no additional behavior would be indirection without purpose — so the existing component was reused *directly*: renamed `FeaturedProject` → `FlagshipProject` and adjusted for its nested role (heading `h2` → `h3`, `#projects` anchor removed, own container dropped since `<Projects />` provides it). That is maximal reuse — zero duplication — which is what the spec's "not a duplicate implementation / one source of truth" intent asks for.
+
+### Files
+
+- `src/content/work.ts` (new) — flagship identity + lifecycle status, and `program` coursework data shipping with `projects: []`; the `ProgramProject` type. No Edgebook copy or route.
+- `src/sections/Projects.tsx` (new) — the section wrapper; owns the `#projects` anchor and the "Projects" heading; composes flagship and program at deliberately different weight.
+- `src/sections/projects/FlagshipProject.tsx` (new, reuses the former `FeaturedProject`) — the flagship presentation, full width; reads identity + lifecycle from `work.ts`, while Edgebook's copy and case-study route live here.
+- `src/sections/projects/ProgramBlock.tsx` (new) — program header, duration, lifecycle status, blurb, and the self-deleting empty state.
+- `src/sections/projects/ProgramProject.tsx` (new) — one compact coursework row; optional link and the "→ fed into Edgebook" marker, rendered only when true.
+- `src/sections/projects/LifecycleTag.tsx` (new) — the section's own lightweight lifecycle tag, distinct from `StatusLabel`.
+- `src/App.tsx` (modified) — renders `<Projects />` in place of the standalone flagship.
+- `src/sections/FeaturedProject.tsx` (removed) — reused as `FlagshipProject`.
+
+---
+
+## Review
+
+### Accepted
+
+- Move, not rebuild: the Edgebook feature is reused as the flagship; its messaging, manuscript, and case study are unchanged.
+- `#projects` moved onto `<Projects />`; hero and Journey untouched, both links still resolve.
+- Two status axes kept separate: `LifecycleTag` (lifecycle) vs `StatusLabel` (implementation evidence).
+- `work.ts` holds flagship identity + lifecycle only; Edgebook's copy and route stay in the component — one source of truth.
+- Honest, self-deleting empty state; no placeholder cards, no grid, no "coming soon."
+- Flagship full width and dominant; coursework visibly lighter.
+- Adding the first coursework project is a data edit in `work.ts` (verified: a temporary object type-checks, then removed).
+
+### Modified
+
+- Reused the existing feature by renaming it to `FlagshipProject` and adjusting it for nesting, rather than introducing a wrapper with no additional behavior (see the judgment note above).
+- The flagship's lifecycle now renders via the shared `LifecycleTag` reading `work.ts`, replacing the previously inline "In development" text (same visual) — so lifecycle has one source and one renderer.
+- Trailing `App` comment updated ("selected projects" dropped; now covered by Projects).
+
+### Rejected
+
+- A grid or placeholder cards for a single flagship; "coming soon" / countdowns.
+- A second `#projects` anchor; editing the hero or the Journey.
+- Restating Edgebook's copy or route in `work.ts`.
+- Overloading the evidence labels to describe project lifecycle, or inventing a third vocabulary.
+
+---
+
+## Manual Verification
+
+- [x] `npm run typecheck` / `lint` / `build` — pass; case study still emitted as a separate lazy chunk.
+- [x] Exactly one `id="projects"` (on `<Projects />`); the hero CTA and Journey coda still target `#projects`.
+- [x] `<ProgramProject />` type-checks against a real object (build-order steps 7–8: added, verified, removed; ships with `projects: []`).
+- [x] Dev server serves; all new modules transform without error (verified over HTTP).
+- [ ] Full visual and assistive-technology pass (mobile / tablet / desktop, keyboard focus, reduced motion, flagship dominance, coursework lighter, empty state honest) — not automatable in this environment; deferred to Amina's review. The implementation follows the design-system rules that govern each.
+
+---
+
+## Lessons Learned
+
+The reorganization's real risk was never the code — it was the three silent failures the spec named: a merged status vocabulary, duplicated copy, and a dead anchor. Making the two status axes *two components* (`LifecycleTag` vs `StatusLabel`) turned the distinction into structure rather than a convention someone has to remember, and reusing the feature by renaming rather than wrapping kept a single source of truth without an empty layer.
+
+---
+
+## Reflection
+
+The section's whole argument is the asymmetry — one deep flagship, light coursework, an honest empty state — so the discipline was resisting the instinct to fill space. An empty state that states a fact and removes itself says more about how the work is done than a padded grid ever would.
+
+---
+
+## Related Commit
+
+`reorganize the homepage around a Projects section`
