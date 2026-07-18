@@ -37,6 +37,8 @@ For every significant AI-assisted task:
 | 003 | Build the Hero Experience      | Introduce the builder before the engineer through the hero     | ✅     |
 | 004 | Build the Journey Narrative    | Tell the story behind the builder through a narrative journey  | ✅ |
 | **005** | **[Edgebook AI Workstream](005-edgebook/README.md)** | Build and continuously document Edgebook AI across the portfolio, including the homepage, engineering case study, and supporting implementation records. | **In progress** |
+| 006 | Update Portfolio Architecture | Establish the portfolio architecture for a dedicated Projects section, with Edgebook as the flagship project | Complete |
+| 007 | Build Projects Section | Implement the flagship and program-work structure without placeholders or unsupported claims | In progress |
 
 Additional prompts will be added as the project evolves.
 
